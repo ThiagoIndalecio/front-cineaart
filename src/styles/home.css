@@ -1,0 +1,74 @@
+.home-container{
+    height: 100vh;
+    
+    
+}
+.cards div{
+    width:auto;
+    height: auto;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.cards  {
+   
+    padding: 10px;
+    box-sizing: border-box;
+    gap: 15px;
+    justify-content: center;
+    grid-template-areas: 'top-left top-left top-left  top-right top-right top-right'
+                         'bot-left bot-left bot-middle bot-middle bot-right bot-right';
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px 200px 200px;
+    height: 600px;
+}
+.footer-card{
+    
+    margin-top: auto;
+    background-color: white;
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.top-left{
+    
+    grid-area: top-left;
+    background: blue;
+    background: url('../public/WhatsApp-Image-2022-05-24-at-09.44.10-1110x624.jpeg') no-repeat;
+    background-position: center;
+    background-size: cover;
+
+}
+
+.top-right{
+ 
+    grid-area: top-right;
+    background: url('../public/sala-de-cinema-cheia-de-pessoas-um-reflexo-da-popularizacao-do-cinema-parte-importante-de-sua-historia.webp') no-repeat;
+    background-position: center;
+    background-size: cover;
+
+}
+
+.bot-left{
+    grid-area: bot-right;
+    background: url('../public/alugar-loja-em-shopping-vale-a-pena.jpg') no-repeat;
+    background-position: center;
+    background-size: cover;
+    grid-area: bot-left;
+
+}
+.bot-middle{
+    grid-area: bot-middle;
+    background: url('../public/parkshopping-sao-caetano-praca-alimentacao.jpg') no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.bot-right{
+    grid-area: bot-right;
+    background-color: pink;
+    background: url('../public/15659001025d55bd46cb646_1565900102_3x2_md.jpg') no-repeat;
+    background-position: center;
+    background-size: cover;
+}
