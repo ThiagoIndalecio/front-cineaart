@@ -1,0 +1,29 @@
+#movie.container{
+    height: 100%;
+    background: #0F1848;
+ 
+}
+
+#movie.nav {
+    
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-flex;  
+    justify-content: space-between; 
+    padding: 30px 40px 0px 40px;
+ 
+
+}
+#movie.nav-cartaz{
+    padding: 40px 40px 0px 40px;
+}   
+#movie.container h2,h3{ 
+    font-size: 1.5em;  
+    color: white;
+}
+
+#movie.cards-list{
+    display: flex;
+    overflow-x: auto;
+    padding: 30px;
+}

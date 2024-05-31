@@ -4,30 +4,48 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
+export default function MultiActionAreaCard({name, ageGroup}) {
 
-export default function MultiActionAreaCard() {
+  
+const ageClass = {
+  "10": "container-blue",
+  "12": "container-yellow",
+  "14": "container-orange",
+  "16": "container-red",
+  "18": "container-black"
+}
+
+
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 400, minWidth: 300, margin:1}}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
-          image="/;"
-          alt="green iguana"
+          height="400"
+          image= 'https://i.imgur.com/YD0elDF.jpg'
+          alt="green iguana"    
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Lizard
+          <Typography gutterBottom variant="h5" component="div" display="flex" justifyContent="space-between" >
+            {name}
+                     
+            <div id="age" className={ageClass[ageGroup]}>
+              <div className="age">
+                {ageGroup}  
+              </div>
+              
+            </div>
           </Typography>
+  
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            aadsdasda
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
+      <CardActions >
         <Button size="small" color="primary">
-          Share
+          Ver sessões disponiveis
         </Button>
       </CardActions>
     </Card>
