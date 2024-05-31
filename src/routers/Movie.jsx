@@ -3,7 +3,6 @@ import '../styles/movie.css'
 import MultiActionAreaCard from '../components/card'
 import axios from 'axios';
 import MovieFooter from '../components/movie-footer'
-import Carrossel from '../components/swiper'
 
 
 function Movie  () {
