@@ -75,7 +75,21 @@ const ModalChooseSeat = () => {
     return (
         <ModalContainer>
             <SessionInfoContainer>
-                <span>RESUMO DA COMPRA</span>
+                <span id={"title"}>RESUMO DA COMPRA</span>
+                <table>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td><img src="http://localhost:8080/api/cinema/movies/get-image/1" style={{width: '50px'}}/></td>
+                        <td>Maria Anders</td>
+                    </tr>
+                    <tr>
+                        <td>Centro comercial Moctezuma</td>
+                        <td>Francisco Chang</td>
+                    </tr>
+                </table>
                 <span>{movieName}</span>
                 <span>image template</span>
                 <span>shopping center</span>

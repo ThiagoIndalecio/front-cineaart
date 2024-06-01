@@ -10,9 +10,17 @@ export const ModalContainer = styled.div`
 `
 
 export const SessionInfoContainer = styled.div`
-    background-color: #ffa879;
     margin-top: 5%;
     width: 40%;
+    span {
+        display: block;
+        margin-bottom: 40px;
+    }
+    
+    #title {
+        font-size: 22px;
+        font-weight: bold;
+    }
 `
 
 export const SeatsContainer = styled.div`
