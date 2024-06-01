@@ -1,16 +1,26 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {RowNumberContainer, SeatsModalContainer} from "../styles/seatsModal.jsx";
+import axiosInstance from "../api/api.js";
 
 const ModalChooseSeat = () => {
-    const [selectedMovie, setSelectedMovie] = useState(16);
-    const [selectedSeats, setSelectedSeats] = useState([]);
+    const transformTo2DArray = (array, rows, columns) => {
+        const result = [];
+        for (let i = 0; i < rows; i++) {
+            const start = i * columns;
+            const end = start + columns;
+            result.push(array.slice(start, end));
+        }
+        return result;
+    };
 
-    const rowIndexRowLetterRelation = {
-        1: 'E',
-        2: 'D',
-        3: 'C',
-        4: 'B',
-        5: 'A',
+    const [sessionSeats, setSessionSeats] = useState([])
+    const [selectedSeats, setSelectedSeats] = useState([]);
+    const [seatsAvailability, setSeatsAvailability] = useState([])
+
+    async function fetchData (){
+        const response = await axiosInstance.get("/api/cinema/sessions/1")
+        const data = response.data
+        return data
     }
 
     const seats = [
@@ -21,9 +31,25 @@ const ModalChooseSeat = () => {
         ['', '', '', 'occupied', 'occupied', '', '', ''],
     ];
 
-    const handleMovieChange = (e) => {
-        setSelectedMovie(parseInt(e.target.value));
-    };
+    useEffect(()=>{
+        fetchData().then(response => {
+            setSessionSeats(response.seats)
+            setSeatsAvailability(transformTo2DArray(
+                response.seats.map(element => element.available),
+                5,
+                8))
+        })
+    },[seats])
+
+
+    const rowIndexRowLetterRelation = {
+        1: 'E',
+        2: 'D',
+        3: 'C',
+        4: 'B',
+        5: 'A',
+    }
+
 
     const handleSeatClick = (rowIndex, seatIndex) => {
         const seatKey = `${rowIndex}-${seatIndex}`;
@@ -46,8 +72,6 @@ const ModalChooseSeat = () => {
         if (selectedSeats.includes(`${rowIndex}-${seatIndex}`)) return 'seat selected';
         return 'seat';
     };
-
-    const totalPrice = selectedSeats.length * selectedMovie;
 
     return (
         <SeatsModalContainer>
