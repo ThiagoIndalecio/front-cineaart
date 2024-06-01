@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider} from "react-router-dom";
-import Home  from './routers/Home.jsx'
-import Movie from './routers/Movie.jsx'
-import App from './App.jsx';
-import ModalChooseSeat from "./components/modal-choose-seat.jsx";
+import  Home  from './routers/Home'
+import  Movie from './routers/Movie'
+import  MovieDetail from './routers/MovieDetail'
+import App from './App';
 
 const router = createBrowserRouter([
   {
@@ -17,12 +17,13 @@ const router = createBrowserRouter([
       },
       {
         path: "/movie",
-        element: <Movie />
+        element: <Movie />,
       },
       {
-        path: "/seats",
-        element: <ModalChooseSeat />
+        path: "movie/:id",
+        element: <MovieDetail />
       }
+   
     ]
   },
 ]);

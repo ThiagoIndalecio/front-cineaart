@@ -1,10 +1,17 @@
 #movie-footer.container{
-    height: 100vh;
+    height: auto;
+    padding-bottom: 50px;
 }
 
 .footer-title{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    padding: 20px;
+    padding-top: 30px;
+}
+
+p {
+    padding-top: 10px;
+    color: #90FF9F ;
 }
 

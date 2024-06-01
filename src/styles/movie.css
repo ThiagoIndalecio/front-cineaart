@@ -1,6 +1,7 @@
 #movie.container{
     height: 100%;
     background: #0F1848;
+    padding: 30px
  
 }
 
@@ -10,13 +11,15 @@
     box-sizing: border-box;
     display: inline-flex;  
     justify-content: space-between; 
-    padding: 30px 40px 0px 40px;
+    padding: 30px 40px 0px 0px;
  
 
 }
+
 #movie.nav-cartaz{
-    padding: 40px 40px 0px 40px;
-}   
+    padding: 40px 40px 30px 0px;
+} 
+
 #movie.container h2,h3{ 
     font-size: 1.5em;  
     color: white;
@@ -25,5 +28,32 @@
 #movie.cards-list{
     display: flex;
     overflow-x: auto;
-    padding: 30px;
+
+}
+
+#movie.cards-list::-webkit-scrollbar{
+    height: 5px;
+    background-color: #0F1848;
+}
+
+#movie.cards-list::-webkit-scrollbar-thumb{
+
+    background-color: #90FF9F;
+    border-radius: 0.25rem;
+}
+
+
+
+
+
+
+.teste{
+    background: url('../public/Group1.png') no-repeat;
+    background-size: cover;
+    width: 400px;
+    padding: 38px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
 }

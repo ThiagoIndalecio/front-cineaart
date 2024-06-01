@@ -1,0 +1,135 @@
+.container-movies {
+
+    background-color: #0F1848;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 80px;
+
+}
+
+.background-banner {
+    width: 100%;
+    display: flex;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 0.25rem;
+
+}
+
+.background-banner img {
+    width: 100%;
+
+
+}
+
+.session-row {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 40px;
+    align-items: center;
+    justify-content: space-between
+    
+}
+
+.session-row-image {
+
+    background: url('https://static.vecteezy.com/system/resources/thumbnails/005/720/479/small/banner-abstract-background-board-for-text-and-message-design-modern-free-vector.jpg');
+    width: 200px;
+    height: 300px;
+    border-radius: 0.25rem;
+
+}
+.session-row-days{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    
+    
+}
+
+.button-days{
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    height: 150px;
+    background-color: #90FF9F ;
+    border-radius: 0.25rem;
+    padding: 8px;
+}
+.button-days-subtitle{
+    font-size: 20px;
+    font-weight: 600;
+
+}
+
+.button-days-tittle{
+    text-align: center;
+    font-size: 60px;
+    font-weight: bold;
+}
+.button-days-end{
+    text-align: end;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.session-decription{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-content: space-between;
+    gap: 12px
+    
+}
+
+.sessions-button-hours{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.button-hours{
+    background-color: #90FF9F;
+    
+}
+
+.session-sinopsys p{
+    color: white;
+}
+.session-sinopsys h2{
+    color: #90FF9F;
+}
+
+.session-sinopsys{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.session-sinopsys-director{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.session-sinopsys-staff{
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+.button-price{
+    text-transform: uppercase;
+    background-color: white;
+    font-size: 24px;
+}
+
+@media screen and (max-width: 767px){
+    .session-decription{
+        grid-template-columns: auto;
+        grid-template-rows: repeat(auto-fit,minmax(0,100%))
+        
+    }
+    .session-row-days{
+        justify-content: center;
+        align-items: center;
+    }
+    
+}
