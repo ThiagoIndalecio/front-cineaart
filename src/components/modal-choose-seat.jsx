@@ -5,9 +5,11 @@ import axiosInstance from "../api/api.js";
 const ModalChooseSeat = () => {
     const [sessionSeats, setSessionSeats] = useState([]);
     const [selectedSeats, setSelectedSeats] = useState([]);
+    const [sessionTime, setSessionTime] = useState(null);
+    const [movieName, setMovieName] = useState("")
     const [seatsAvailability, setSeatsAvailability] = useState([]);
     const data = Date.now();
-    const movieName = "Divertidamente 2"
+    const imageUrl = "teste"
 
     const transformTo2DArray = (array, rows, columns) => {
         const result = [];
@@ -28,6 +30,8 @@ const ModalChooseSeat = () => {
 
     useEffect(()=>{
         fetchData().then(response => {
+            setMovieName(response.movie.name)
+            setSessionTime(response.sessionStartTime)
             setSessionSeats(response.seats)
             setSeatsAvailability(transformTo2DArray(
                 response.seats,
@@ -71,24 +75,14 @@ const ModalChooseSeat = () => {
     return (
         <ModalContainer>
             <SessionInfoContainer>
-                teste
+                <span>RESUMO DA COMPRA</span>
+                <span>{movieName}</span>
+                <span>image template</span>
+                <span>shopping center</span>
+                <span>{sessionTime}</span>
             </SessionInfoContainer>
             <SeatsContainer>
-                <ul className="showcase">
-                    <li>
-                        <div className="seat"></div>
-                        <small>Available</small>
-                    </li>
-                    <li>
-                        <div className="seat selected"></div>
-                        <small>Selected</small>
-                    </li>
-                    <li>
-                        <div className="seat occupied"></div>
-                        <small>Occupied</small>
-                    </li>
-                </ul>
-
+                <span>ESCOLHA O SEU ASSENTO</span>
                 <div className="container">
                     <div className="screen"></div>
 
@@ -105,7 +99,7 @@ const ModalChooseSeat = () => {
 
                     {seatsAvailability.map((row, rowIndex) => (
                         <div className="row" key={rowIndex}>
-                            <div style={{marginRight: "10px"}}>{rowIndexRowLetterRelation[rowIndex + 1]}</div>
+                            <div style={{marginRight: "10px", fontSize: '20px', fontWeight: "bold"}}>{rowIndexRowLetterRelation[rowIndex + 1]}</div>
                             {row.map((seat, seatIndex) => (
                                 <div
                                     key={seatIndex}
@@ -116,6 +110,21 @@ const ModalChooseSeat = () => {
                         </div>
                     ))}
                 </div>
+                <ul className="showcase">
+                    <li>
+                        <div className="seat"></div>
+                        <small>DISPONÍVEL</small>
+                    </li>
+                    <li>
+                        <div className="seat occupied"></div>
+                        <small>INDISPONÍVEL</small>
+                    </li>
+                    <li>
+                        <div className="seat selected"></div>
+                        <small>SELECIONADO</small>
+                    </li>
+
+                </ul>
             </SeatsContainer>
         </ModalContainer>
 

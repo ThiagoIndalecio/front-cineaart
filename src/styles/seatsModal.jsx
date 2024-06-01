@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ModalContainer = styled.div`
     width: 50%;
-    height: 30%;
+    height: 60vh;
     margin-left: auto;
     margin-right: auto;
     display: flex;
@@ -18,6 +18,16 @@ export const SessionInfoContainer = styled.div`
 export const SeatsContainer = styled.div`
     margin-top: 5%;
     width: 100%;
+    
+    span {
+        margin-bottom: 45px;
+        display: flex;
+        font-size: 22px;
+        font-weight: bold;
+    }
+    
+    
+    
     select {
         background-color: #fff;
         border: 0;
@@ -32,11 +42,10 @@ export const SeatsContainer = styled.div`
 
     .seat {
         background-color: #90FF9F;
-        height: 12px;
-        width: 15px;
+        height: 30px;
+        width: 30px;
         margin: 3px;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        border-radius: 5px;
     }
 
     .seat.selected {
@@ -103,7 +112,9 @@ export const RowNumberContainer = styled.div`
     align-items: center;
     justify-content: center;
     margin-left: 14px;
+    font-size: 20px;
+    font-weight: bold;
     div {
-        margin: 6px;
+        margin: 13px;
     }
 `
