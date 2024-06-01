@@ -23,23 +23,15 @@ const ModalChooseSeat = () => {
         return data
     }
 
-    const seats = [
-        ['', '', '', '', '', '', '', ''],
-        ['', '', '', 'occupied', 'occupied', '', '', ''],
-        ['', '', '', '', '', '', 'occupied', 'occupied'],
-        ['', '', '', '', '', '', '', ''],
-        ['', '', '', 'occupied', 'occupied', '', '', ''],
-    ];
-
     useEffect(()=>{
         fetchData().then(response => {
             setSessionSeats(response.seats)
             setSeatsAvailability(transformTo2DArray(
-                response.seats.map(element => element.available),
+                response.seats,
                 5,
                 8))
         })
-    },[seats])
+    },[])
 
 
     const rowIndexRowLetterRelation = {
@@ -52,8 +44,9 @@ const ModalChooseSeat = () => {
 
 
     const handleSeatClick = (rowIndex, seatIndex) => {
+        console.log(seatsAvailability[rowIndex][seatIndex])
         const seatKey = `${rowIndex}-${seatIndex}`;
-        if (seats[rowIndex][seatIndex] === 'occupied') return;
+        if (seatsAvailability[rowIndex][seatIndex].available === false) return;
 
         const newSelectedSeats = [...selectedSeats];
         const seatIndexInSelected = newSelectedSeats.indexOf(seatKey);
@@ -68,7 +61,7 @@ const ModalChooseSeat = () => {
     };
 
     const getSeatClass = (rowIndex, seatIndex) => {
-        if (seats[rowIndex][seatIndex] === 'occupied') return 'seat occupied';
+        if (seatsAvailability[rowIndex][seatIndex].available === false) return 'seat occupied';
         if (selectedSeats.includes(`${rowIndex}-${seatIndex}`)) return 'seat selected';
         return 'seat';
     };
@@ -104,7 +97,7 @@ const ModalChooseSeat = () => {
                     <div>8</div>
                 </RowNumberContainer>
 
-                {seats.map((row, rowIndex) => (
+                {seatsAvailability.map((row, rowIndex) => (
                     <div className="row" key={rowIndex}>
                         <div style={{marginRight: "10px"}}>{rowIndexRowLetterRelation[rowIndex + 1]}</div>
                         {row.map((seat, seatIndex) => (
