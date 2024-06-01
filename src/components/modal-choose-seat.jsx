@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
+import {RowNumberContainer, SeatsModalContainer} from "../styles/seatsModal.jsx";
 
 const ModalChooseSeat = () => {
     const [selectedMovie, setSelectedMovie] = useState(16);
     const [selectedSeats, setSelectedSeats] = useState([]);
 
-    const movieOptions = [
-        { value: 16, label: 'Avengers: End Game ($16)' },
-        { value: 20, label: 'Dark Knight ($20)' },
-        { value: 10, label: 'Harry Potter and the Goblet of Fire ($10)' },
-        { value: 12, label: 'Transformers ($12)' },
-    ];
+    const rowIndexRowLetterRelation = {
+        1: 'E',
+        2: 'D',
+        3: 'C',
+        4: 'B',
+        5: 'A',
+    }
 
     const seats = [
-        // Array of rows, each containing an array of seats
         ['', '', '', '', '', '', '', ''],
         ['', '', '', 'occupied', 'occupied', '', '', ''],
         ['', '', '', '', '', '', 'occupied', 'occupied'],
         ['', '', '', '', '', '', '', ''],
         ['', '', '', 'occupied', 'occupied', '', '', ''],
-        ['', 'occupied', '', '', '', 'occupied', 'occupied', ''],
     ];
 
     const handleMovieChange = (e) => {
@@ -50,18 +50,7 @@ const ModalChooseSeat = () => {
     const totalPrice = selectedSeats.length * selectedMovie;
 
     return (
-        <div>
-            <div className="move-container">
-                <label>Pick a movie:</label>
-                <select id="movie" value={selectedMovie} onChange={handleMovieChange}>
-                    {movieOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                            {option.label}
-                        </option>
-                    ))}
-                </select>
-            </div>
-
+        <SeatsModalContainer>
             <ul className="showcase">
                 <li>
                     <div className="seat"></div>
@@ -79,8 +68,21 @@ const ModalChooseSeat = () => {
 
             <div className="container">
                 <div className="screen"></div>
+
+                <RowNumberContainer>
+                    <div>1</div>
+                    <div>2</div>
+                    <div>3</div>
+                    <div>4</div>
+                    <div>5</div>
+                    <div>6</div>
+                    <div>7</div>
+                    <div>8</div>
+                </RowNumberContainer>
+
                 {seats.map((row, rowIndex) => (
                     <div className="row" key={rowIndex}>
+                        <div style={{marginRight: "10px"}}>{rowIndexRowLetterRelation[rowIndex + 1]}</div>
                         {row.map((seat, seatIndex) => (
                             <div
                                 key={seatIndex}
@@ -91,12 +93,7 @@ const ModalChooseSeat = () => {
                     </div>
                 ))}
             </div>
-
-            <p className="text">
-                You have selected <span id="count">{selectedSeats.length}</span> seats for the price of $
-                <span id="total">{totalPrice}</span>!
-            </p>
-        </div>
+        </SeatsModalContainer>
     );
 };
 
