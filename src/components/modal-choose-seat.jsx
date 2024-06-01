@@ -1,8 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {RowNumberContainer, SeatsModalContainer} from "../styles/seatsModal.jsx";
+import {SessionInfoContainer, RowNumberContainer, SeatsContainer, ModalContainer} from "../styles/seatsModal.jsx";
 import axiosInstance from "../api/api.js";
 
 const ModalChooseSeat = () => {
+    const [sessionSeats, setSessionSeats] = useState([]);
+    const [selectedSeats, setSelectedSeats] = useState([]);
+    const [seatsAvailability, setSeatsAvailability] = useState([]);
+    const data = Date.now();
+    const movieName = "Divertidamente 2"
+
     const transformTo2DArray = (array, rows, columns) => {
         const result = [];
         for (let i = 0; i < rows; i++) {
@@ -13,9 +19,6 @@ const ModalChooseSeat = () => {
         return result;
     };
 
-    const [sessionSeats, setSessionSeats] = useState([])
-    const [selectedSeats, setSelectedSeats] = useState([]);
-    const [seatsAvailability, setSeatsAvailability] = useState([])
 
     async function fetchData (){
         const response = await axiosInstance.get("/api/cinema/sessions/1")
@@ -42,7 +45,6 @@ const ModalChooseSeat = () => {
         5: 'A',
     }
 
-
     const handleSeatClick = (rowIndex, seatIndex) => {
         console.log(seatsAvailability[rowIndex][seatIndex])
         const seatKey = `${rowIndex}-${seatIndex}`;
@@ -67,50 +69,56 @@ const ModalChooseSeat = () => {
     };
 
     return (
-        <SeatsModalContainer>
-            <ul className="showcase">
-                <li>
-                    <div className="seat"></div>
-                    <small>Available</small>
-                </li>
-                <li>
-                    <div className="seat selected"></div>
-                    <small>Selected</small>
-                </li>
-                <li>
-                    <div className="seat occupied"></div>
-                    <small>Occupied</small>
-                </li>
-            </ul>
+        <ModalContainer>
+            <SessionInfoContainer>
+                teste
+            </SessionInfoContainer>
+            <SeatsContainer>
+                <ul className="showcase">
+                    <li>
+                        <div className="seat"></div>
+                        <small>Available</small>
+                    </li>
+                    <li>
+                        <div className="seat selected"></div>
+                        <small>Selected</small>
+                    </li>
+                    <li>
+                        <div className="seat occupied"></div>
+                        <small>Occupied</small>
+                    </li>
+                </ul>
 
-            <div className="container">
-                <div className="screen"></div>
+                <div className="container">
+                    <div className="screen"></div>
 
-                <RowNumberContainer>
-                    <div>1</div>
-                    <div>2</div>
-                    <div>3</div>
-                    <div>4</div>
-                    <div>5</div>
-                    <div>6</div>
-                    <div>7</div>
-                    <div>8</div>
-                </RowNumberContainer>
+                    <RowNumberContainer>
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                    </RowNumberContainer>
 
-                {seatsAvailability.map((row, rowIndex) => (
-                    <div className="row" key={rowIndex}>
-                        <div style={{marginRight: "10px"}}>{rowIndexRowLetterRelation[rowIndex + 1]}</div>
-                        {row.map((seat, seatIndex) => (
-                            <div
-                                key={seatIndex}
-                                className={getSeatClass(rowIndex, seatIndex)}
-                                onClick={() => handleSeatClick(rowIndex, seatIndex)}
-                            ></div>
-                        ))}
-                    </div>
-                ))}
-            </div>
-        </SeatsModalContainer>
+                    {seatsAvailability.map((row, rowIndex) => (
+                        <div className="row" key={rowIndex}>
+                            <div style={{marginRight: "10px"}}>{rowIndexRowLetterRelation[rowIndex + 1]}</div>
+                            {row.map((seat, seatIndex) => (
+                                <div
+                                    key={seatIndex}
+                                    className={getSeatClass(rowIndex, seatIndex)}
+                                    onClick={() => handleSeatClick(rowIndex, seatIndex)}
+                                ></div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+            </SeatsContainer>
+        </ModalContainer>
+
     );
 };
 

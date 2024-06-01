@@ -1,12 +1,23 @@
 import styled from "styled-components";
 
-export const SeatsModalContainer = styled.div`
-    margin-top: 5%;
-    width: 30%;
+export const ModalContainer = styled.div`
+    width: 50%;
     height: 30%;
-    max-width: fit-content;
     margin-left: auto;
     margin-right: auto;
+    display: flex;
+    margin-top: 5%;
+`
+
+export const SessionInfoContainer = styled.div`
+    background-color: #ffa879;
+    margin-top: 5%;
+    width: 40%;
+`
+
+export const SeatsContainer = styled.div`
+    margin-top: 5%;
+    width: 100%;
     select {
         background-color: #fff;
         border: 0;
