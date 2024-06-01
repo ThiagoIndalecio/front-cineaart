@@ -24,6 +24,22 @@
     grid-template-columns: 200px 200px 200px 200px 200px 200px;
     height: 600px;
 }
+
+@media screen and (max-width: 767px){
+    .cards{
+        grid-template-areas: 'top-left'
+                             'top-right' 
+                             'bot-left'
+                             'bot-middle'
+                             'bot-right';
+        grid-template-columns: 100%;
+        grid-template-rows: 200px 200px 200px 200px 200px;
+    }
+    .footer-card{
+        width: 100%;
+    }
+}
+
 .footer-card{
     
     margin-top: auto;

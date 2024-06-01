@@ -1,11 +1,13 @@
 import React from "react";
 import '../styles/home.css'
 import { Link } from "react-router-dom";
-const Home = () => {
+
+
+export default function Home() {
 
     return (
-     
-        
+
+
         <div className="home-container">
             <div className="box">
                 <div className="cards">
@@ -17,10 +19,10 @@ const Home = () => {
                     <div className="top-right">
                         <div className="footer-card">
                             <h4><Link to="/movie">Cinema</Link></h4>
-                            
+
                         </div>
                     </div>
-                    
+
                     <div className="bot-left">
                         <div className="footer-card">
                             <h4>Lojas</h4>
@@ -37,9 +39,7 @@ const Home = () => {
                 </div>
             </div>
         </div>
-  
-        
+
+
     )
 }
-
-export default Home;

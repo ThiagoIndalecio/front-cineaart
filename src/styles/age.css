@@ -7,16 +7,18 @@
     align-items: center;
     box-shadow: 1.1px 2.2px 2.2px hsl(0deg 0% 0% / 0.47);
 }
-#age > .age{
+#age.age{
     font-weight: bold;
     font-family: sans-serif;
 }
 
 #age.container-blue{
     background-color: lightskyblue;
-    
 }
 
-#age.container-yellow{
+#age.container-yellow {
     background-color: yellow;
+}
+#age.container-orange{
+    background-color: orangered;
 }
