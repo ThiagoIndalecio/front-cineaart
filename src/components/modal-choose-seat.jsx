@@ -10,8 +10,8 @@ import axiosInstance from "../api/api.js";
 import {Modal} from "@mui/material";
 
 const ModalChooseSeat = ({ show, onClose }) => {
-    const [sessionSeats, setSessionSeats] = useState([]);
     const [selectedSeats, setSelectedSeats] = useState([]);
+    const [selectedSeatsId, setSelectedSeatsId] = useState([]);
     const [sessionTime, setSessionTime] = useState(null);
     const [movieName, setMovieName] = useState("")
     const [seatsAvailability, setSeatsAvailability] = useState([]);
@@ -39,7 +39,6 @@ const ModalChooseSeat = ({ show, onClose }) => {
         fetchData().then(response => {
             setMovieName(response.movie.name)
             setSessionTime(response.sessionStartTime)
-            setSessionSeats(response.seats)
             setSeatsAvailability(transformTo2DArray(
                 response.seats,
                 5,
@@ -57,7 +56,6 @@ const ModalChooseSeat = ({ show, onClose }) => {
     }
 
     const handleSeatClick = (rowIndex, seatIndex) => {
-        console.log(seatsAvailability[rowIndex][seatIndex])
         const seatKey = `${rowIndex}-${seatIndex}`;
         if (seatsAvailability[rowIndex][seatIndex].available === false) return;
 
@@ -70,7 +68,16 @@ const ModalChooseSeat = ({ show, onClose }) => {
             newSelectedSeats.push(seatKey);
         }
 
+        if (selectedSeatsId.some(seatId => seatId === seatsAvailability[rowIndex][seatIndex].id)) {
+            console.log("tem!!")
+            setSelectedSeatsId(selectedSeatsId.filter(item => item !== seatsAvailability[rowIndex][seatIndex].id));
+        } else {
+            console.log("naao!!")
+            setSelectedSeatsId([...selectedSeatsId, seatsAvailability[rowIndex][seatIndex].id]);
+        }
+
         setSelectedSeats(newSelectedSeats);
+        console.log(selectedSeatsId)
     };
 
     const getSeatClass = (rowIndex, seatIndex) => {
