@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider} from "react-router-dom";
-import  Home  from './routers/Home'
-import  Movie from './routers/Movie'
+import  Home  from './routers/Home.jsx'
+import  Movie from './routers/Movie.jsx'
 import  MovieDetail from './routers/MovieDetail'
-import App from './App';
+import App from './App.jsx';
 
 const router = createBrowserRouter([
   {

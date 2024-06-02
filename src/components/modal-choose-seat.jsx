@@ -1,8 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {SessionInfoContainer, RowNumberContainer, SeatsContainer, ModalContainer} from "../styles/seatsModal.jsx";
+import {
+    SessionInfoContainer,
+    RowNumberContainer,
+    SeatsContainer,
+    ModalContainer,
+    Image
+} from "../styles/seatsModal.jsx";
 import axiosInstance from "../api/api.js";
+import {Modal} from "@mui/material";
 
-const ModalChooseSeat = () => {
+const ModalChooseSeat = ({ show, onClose }) => {
     const [sessionSeats, setSessionSeats] = useState([]);
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [sessionTime, setSessionTime] = useState(null);
@@ -73,75 +80,83 @@ const ModalChooseSeat = () => {
     };
 
     return (
-        <ModalContainer>
-            <SessionInfoContainer>
-                <span id={"title"}>RESUMO DA COMPRA</span>
-                <table>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <td><img src="http://localhost:8080/api/cinema/movies/get-image/1" style={{width: '50px'}}/></td>
-                        <td>Maria Anders</td>
-                    </tr>
-                    <tr>
-                        <td>Centro comercial Moctezuma</td>
-                        <td>Francisco Chang</td>
-                    </tr>
-                </table>
-                <span>{movieName}</span>
-                <span>image template</span>
-                <span>shopping center</span>
-                <span>{sessionTime}</span>
-            </SessionInfoContainer>
-            <SeatsContainer>
-                <span>ESCOLHA O SEU ASSENTO</span>
-                <div className="container">
-                    <div className="screen"></div>
+        <Modal open={show}
+               onClose={onClose}>
+            <ModalContainer>
+                <SessionInfoContainer>
+                    <span id={"title"}>RESUMO DA COMPRA</span>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <Image src={"http://localhost:8080/api/cinema/movies/get-image/1"}></Image>
+                            <td>{movieName}</td>
+                        </tr>
+                        <tr>
+                            <Image src={"/calendar.png"}></Image>
+                            <td>{sessionTime}</td>
+                        </tr>
 
-                    <RowNumberContainer>
-                        <div>1</div>
-                        <div>2</div>
-                        <div>3</div>
-                        <div>4</div>
-                        <div>5</div>
-                        <div>6</div>
-                        <div>7</div>
-                        <div>8</div>
-                    </RowNumberContainer>
+                        <tr>
+                            <Image src={"/location.png"}></Image>
+                            <td>SHOPPING CENTER</td>
+                        </tr>
 
-                    {seatsAvailability.map((row, rowIndex) => (
-                        <div className="row" key={rowIndex}>
-                            <div style={{marginRight: "10px", fontSize: '20px', fontWeight: "bold"}}>{rowIndexRowLetterRelation[rowIndex + 1]}</div>
-                            {row.map((seat, seatIndex) => (
-                                <div
-                                    key={seatIndex}
-                                    className={getSeatClass(rowIndex, seatIndex)}
-                                    onClick={() => handleSeatClick(rowIndex, seatIndex)}
-                                ></div>
-                            ))}
-                        </div>
-                    ))}
-                </div>
-                <ul className="showcase">
-                    <li>
-                        <div className="seat"></div>
-                        <small>DISPONÍVEL</small>
-                    </li>
-                    <li>
-                        <div className="seat occupied"></div>
-                        <small>INDISPONÍVEL</small>
-                    </li>
-                    <li>
-                        <div className="seat selected"></div>
-                        <small>SELECIONADO</small>
-                    </li>
+                        <tr>
+                            <Image src={"/clock.png"}></Image>
+                            <td>{sessionTime}</td>
+                        </tr>
+                    </table>
+                </SessionInfoContainer>
+                <SeatsContainer>
+                    <span>ESCOLHA O SEU ASSENTO</span>
+                    <div className="container">
+                        <div className="screen"></div>
 
-                </ul>
-            </SeatsContainer>
-        </ModalContainer>
+                        <RowNumberContainer>
+                            <div>1</div>
+                            <div>2</div>
+                            <div>3</div>
+                            <div>4</div>
+                            <div>5</div>
+                            <div>6</div>
+                            <div>7</div>
+                            <div>8</div>
+                        </RowNumberContainer>
 
+                        {seatsAvailability.map((row, rowIndex) => (
+                            <div className="row" key={rowIndex}>
+                                <div style={{marginRight: "10px", fontSize: '20px', fontWeight: "bold"}}>{rowIndexRowLetterRelation[rowIndex + 1]}</div>
+                                {row.map((seat, seatIndex) => (
+                                    <div
+                                        key={seatIndex}
+                                        className={getSeatClass(rowIndex, seatIndex)}
+                                        onClick={() => handleSeatClick(rowIndex, seatIndex)}
+                                    ></div>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                    <ul className="showcase">
+                        <li>
+                            <div className="seat"></div>
+                            <small>DISPONÍVEL</small>
+                        </li>
+                        <li>
+                            <div className="seat occupied"></div>
+                            <small>INDISPONÍVEL</small>
+                        </li>
+                        <li>
+                            <div className="seat selected"></div>
+                            <small>SELECIONADO</small>
+                        </li>
+
+                    </ul>
+                </SeatsContainer>
+            </ModalContainer>
+        </Modal>
     );
 };
 

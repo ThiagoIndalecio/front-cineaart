@@ -1,17 +1,20 @@
 import styled from "styled-components";
 
 export const ModalContainer = styled.div`
-    width: 50%;
-    height: 60vh;
-    margin-left: auto;
+    height: 80vh;
+    margin-left: 25%;
     margin-right: auto;
     display: flex;
     margin-top: 5%;
+    position: fixed;
+    background-color: #0F1848;
+    color: white;
+    border: 5px white solid;
 `
 
 export const SessionInfoContainer = styled.div`
-    margin-top: 5%;
-    width: 40%;
+    margin: 5%;
+    width: 50%;
     span {
         display: block;
         margin-bottom: 40px;
@@ -50,8 +53,8 @@ export const SeatsContainer = styled.div`
 
     .seat {
         background-color: #90FF9F;
-        height: 30px;
-        width: 30px;
+        height: 25px;
+        width: 25px;
         margin: 3px;
         border-radius: 5px;
     }
@@ -126,3 +129,13 @@ export const RowNumberContainer = styled.div`
         margin: 13px;
     }
 `
+
+export const Image = styled.img`
+    border-radius: 10px;
+    background-color: #464646;
+    width: 10vh;
+    height: 10vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+`;
