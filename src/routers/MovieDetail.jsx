@@ -1,11 +1,30 @@
-import React from "react";
+import {React, useEffect, useState} from "react";
 import { useParams } from 'react-router-dom'
 import '../styles/movie-detail.css'
 import MovieFooter from "../components/movie-footer";
+import axios from "axios";
 
 export default function MovieDetail() {
 
     const params = useParams()
+
+
+    const [session, setSession] = useState([])
+
+    useEffect(() => {
+        async function data() {
+            const response = await axios.get(`http://localhost:8080/api/cinema/sessions/movies/${params.id}`)
+            const data = response.data.content
+            console.log(data)
+            setSession(data)
+
+        }
+        data()
+
+    }, [])
+
+
+
 
 
     return (
