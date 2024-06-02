@@ -1,5 +1,4 @@
 import React from "react";
-import Movie from '../routers/Movie'
 import { Link } from "react-router-dom";
 import '../styles/category.css'
 

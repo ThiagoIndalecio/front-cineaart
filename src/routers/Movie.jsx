@@ -37,6 +37,7 @@ export default function Movie() {
             </div>
             <div id="movie" className="cards-list">
                 {
+                    
                     movies.map((movie) => (
                         <MultiActionAreaCard
                             key={movie.id}
