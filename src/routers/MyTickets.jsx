@@ -1,15 +1,27 @@
 import {TicketContainer} from "../styles/my-tickets.jsx";
+import { useLocation } from 'react-router-dom';
+import axiosInstance from "../api/api.js";
+import {useEffect} from "react";
 
-export default function MyTickets(props) {
+export default function MyTickets() {
+    const location = useLocation();
+    const ticketData = location.state.ticketData
+    const sessionId = location.state.sessionId
 
+    async function fetchSessionData() {
+        const response = await axiosInstance.get("/api/cinema/sessions/" + sessionId);
+        const data = response.data;
+        return data;
+    }
 
+    useEffect(() => {
+        fetchSessionData()
+    }, []);
 
     return (
         <TicketContainer>
             <div className="ticket created-by-anniedotexe">
                 <div className="left">
-                    <div className="image">
-                    </div>
                     <div className="ticket-info">
                         <p className="date">
                             <span>TUESDAY</span>

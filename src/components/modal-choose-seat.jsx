@@ -8,30 +8,43 @@ import {
 } from "../styles/seatsModal.jsx";
 import axiosInstance from "../api/api.js";
 import {Modal} from "@mui/material";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 
 const ModalChooseSeat = ({ show, onClose }) => {
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [selectedSeatsId, setSelectedSeatsId] = useState([]);
     const [sessionTime, setSessionTime] = useState(null);
-    const [movieName, setMovieName] = useState("")
+    const [movieName, setMovieName] = useState("");
     const [seatsAvailability, setSeatsAvailability] = useState([]);
     const [sessionBasePrice, setSessionBasePrice] = useState(0);
+    const [sessionId, setSessionId] = useState(null);
+    const [ticketData, setTicketData] = useState([]);
+    const navigate = useNavigate(); // Hook para navegação
 
     const buyTickets = () => {
-        selectedSeatsId.forEach(seat =>
+        const tickets = [];
+        selectedSeatsId.forEach(seat => {
+            const ticketRequest = {
+                seatId: seat.id,
+                uuid: uuidv4(),
+                paidPrice: sessionBasePrice,
+                discountType: 'NONE'
+            };
             axiosInstance.post(
                 'api/cinema/tickets',
-                {
-                    seatId: seat.id,
-                    uuid: uuidv4(),
-                    paidPrice: sessionBasePrice,
-                    discountType: 'NONE'
-                }
-            )
-        );
-    }
+                ticketRequest
+            );
+            tickets.push(ticketRequest);
+        });
+        setTicketData(tickets);
+    };
+
+    useEffect(() => {
+        if (ticketData.length > 0) {
+            navigate('/my-tickets', { state: {ticketData: ticketData, sessionId: sessionId}});
+        }
+    }, [ticketData, navigate]);
 
     const transformTo2DArray = (array, rows, columns) => {
         const result = [];
@@ -43,25 +56,25 @@ const ModalChooseSeat = ({ show, onClose }) => {
         return result;
     };
 
-
-    async function fetchData (){
-        const response = await axiosInstance.get("/api/cinema/sessions/1")
-        const data = response.data
-        return data
+    async function fetchData() {
+        const response = await axiosInstance.get("/api/cinema/sessions/1");
+        const data = response.data;
+        return data;
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchData().then(response => {
-            setMovieName(response.movie.name)
-            setSessionBasePrice(response.basePrice)
-            setSessionTime(response.sessionStartTime)
+            setMovieName(response.movie.name);
+            setSessionBasePrice(response.basePrice);
+            setSessionTime(response.sessionStartTime);
+            setSessionId(response.id)
             setSeatsAvailability(transformTo2DArray(
                 response.seats,
                 5,
-                8))
-        })
-    },[])
-
+                8
+            ));
+        });
+    }, []);
 
     const rowIndexRowLetterRelation = {
         1: 'E',
@@ -69,7 +82,7 @@ const ModalChooseSeat = ({ show, onClose }) => {
         3: 'C',
         4: 'B',
         5: 'A',
-    }
+    };
 
     const handleSeatClick = (rowIndex, seatIndex) => {
         const seatKey = `${rowIndex}-${seatIndex}`;
@@ -91,7 +104,7 @@ const ModalChooseSeat = ({ show, onClose }) => {
         }
 
         setSelectedSeats(newSelectedSeats);
-        console.log(selectedSeatsId)
+        console.log(selectedSeatsId);
     };
 
     const getSeatClass = (rowIndex, seatIndex) => {
@@ -119,12 +132,10 @@ const ModalChooseSeat = ({ show, onClose }) => {
                             <Image src={"/calendar.png"}></Image>
                             <td>{sessionTime}</td>
                         </tr>
-
                         <tr>
                             <Image src={"/location.png"}></Image>
                             <td>SHOPPING CENTER</td>
                         </tr>
-
                         <tr>
                             <Image src={"/clock.png"}></Image>
                             <td>{sessionTime}</td>
@@ -178,11 +189,8 @@ const ModalChooseSeat = ({ show, onClose }) => {
                             <div className="seat selected"></div>
                             <small>SELECIONADO</small>
                         </li>
-
                     </ul>
-                    <Link to={'/my-tickets'}>
-                        <button onClick={buyTickets}>COMPRAR</button>
-                    </Link>
+                    <button onClick={buyTickets}>COMPRAR</button>
                 </SeatsContainer>
             </ModalContainer>
         </Modal>
