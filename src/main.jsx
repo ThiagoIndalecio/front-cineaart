@@ -5,6 +5,7 @@ import  Home  from './routers/Home.jsx'
 import  Movie from './routers/Movie.jsx'
 import  MovieDetail from './routers/MovieDetail'
 import App from './App.jsx';
+import MyTickets from "./routers/MyTickets.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "movie/:id",
         element: <MovieDetail />
+      },
+      {
+        path: "/my-tickets",
+        element: <MyTickets />
       }
    
     ]

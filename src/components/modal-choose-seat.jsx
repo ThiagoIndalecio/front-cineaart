@@ -8,6 +8,8 @@ import {
 } from "../styles/seatsModal.jsx";
 import axiosInstance from "../api/api.js";
 import {Modal} from "@mui/material";
+import {Link} from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 
 const ModalChooseSeat = ({ show, onClose }) => {
     const [selectedSeats, setSelectedSeats] = useState([]);
@@ -15,8 +17,21 @@ const ModalChooseSeat = ({ show, onClose }) => {
     const [sessionTime, setSessionTime] = useState(null);
     const [movieName, setMovieName] = useState("")
     const [seatsAvailability, setSeatsAvailability] = useState([]);
-    const data = Date.now();
-    const imageUrl = "teste"
+    const [sessionBasePrice, setSessionBasePrice] = useState(0);
+
+    const buyTickets = () => {
+        selectedSeatsId.forEach(seat =>
+            axiosInstance.post(
+                'api/cinema/tickets',
+                {
+                    seatId: seat.id,
+                    uuid: uuidv4(),
+                    paidPrice: sessionBasePrice,
+                    discountType: 'NONE'
+                }
+            )
+        );
+    }
 
     const transformTo2DArray = (array, rows, columns) => {
         const result = [];
@@ -38,6 +53,7 @@ const ModalChooseSeat = ({ show, onClose }) => {
     useEffect(()=>{
         fetchData().then(response => {
             setMovieName(response.movie.name)
+            setSessionBasePrice(response.basePrice)
             setSessionTime(response.sessionStartTime)
             setSeatsAvailability(transformTo2DArray(
                 response.seats,
@@ -69,11 +85,9 @@ const ModalChooseSeat = ({ show, onClose }) => {
         }
 
         if (selectedSeatsId.some(seatId => seatId === seatsAvailability[rowIndex][seatIndex].id)) {
-            console.log("tem!!")
-            setSelectedSeatsId(selectedSeatsId.filter(item => item !== seatsAvailability[rowIndex][seatIndex].id));
+            setSelectedSeatsId(selectedSeatsId.filter(item => item.id !== seatsAvailability[rowIndex][seatIndex].id));
         } else {
-            console.log("naao!!")
-            setSelectedSeatsId([...selectedSeatsId, seatsAvailability[rowIndex][seatIndex].id]);
+            setSelectedSeatsId([...selectedSeatsId, seatsAvailability[rowIndex][seatIndex]]);
         }
 
         setSelectedSeats(newSelectedSeats);
@@ -166,8 +180,9 @@ const ModalChooseSeat = ({ show, onClose }) => {
                         </li>
 
                     </ul>
-
-                    <button>ESCOLHER TIPO DE INGRESSO</button>
+                    <Link to={'/my-tickets'}>
+                        <button onClick={buyTickets}>COMPRAR</button>
+                    </Link>
                 </SeatsContainer>
             </ModalContainer>
         </Modal>
