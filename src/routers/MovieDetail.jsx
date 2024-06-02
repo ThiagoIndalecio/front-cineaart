@@ -1,13 +1,10 @@
 import { React, useEffect, useState } from "react";
 import { useParams } from 'react-router-dom'
-import '../styles/movie-detail.css'
 import MovieFooter from "../components/movie-footer";
 import axios from "axios";
 import 'moment/dist/locale/pt-br'
 import moment from 'moment'
-import ButtonDay from "../components/button-days";
-import { selectedDate} from "../components/button-days"
-
+import '../styles/movie-detail.css'
 
 
 export default function MovieDetail() {
@@ -19,11 +16,23 @@ export default function MovieDetail() {
     const [movie, setMovie] = useState([])
     const [elenco, setElenco] = useState([])
     const [uniqueDay, setUniqueDay] = useState([])
+    const [selectedDate, setSelectedDate] = useState([]);
+    const [sessionByDay, setSessionsByDay] = useState([])
+    
+
+
+    const handleButtonClick =   ( dateValue) => {
+        
+        setSelectedDate(dateValue);
+        const hoursSessions =   session.filter((hour) => moment(hour.sessionStartTime).format("DD") === dateValue)
+        setSessionsByDay(hoursSessions)
+       
+      
+    };
+
 
     useEffect(() => {
 
-
-        console.log(selectedDate)
         async function dataSession() {
             const response = await axios.get(`http://localhost:8080/api/cinema/sessions/movies/${params.id}`)
             const data = response.data.content
@@ -42,26 +51,24 @@ export default function MovieDetail() {
 
             uniqueSessions.sort((a, b) => {
                 return new Date(a.sessionStartTime) - new Date(b.sessionStartTime);
+        
             });
 
             setUniqueDay(uniqueSessions)
-            console.log(uniqueSessions)
+            
+
         }
         async function dataMovie() {
             const response = await axios.get(`http://localhost:8080/api/cinema/movies/${params.id}`)
             const dataMovie = response.data
             setMovie(dataMovie)
-            console.log(movie)
-            console.log(dataMovie)
+         
 
             setElenco(response.data.movieCast.split(','))
         }
-        
+
         dataMovie()
         dataSession()
-
-
-
 
     }, [])
 
@@ -78,15 +85,18 @@ export default function MovieDetail() {
                     </div>
                     <div className="session-row-days">
                         {
+                            uniqueDay.map((sessionDay) => (
+                                <button
+                                    key={sessionDay.id}
+                                    onClick={ () => handleButtonClick( moment(sessionDay.sessionStartTime).format("DD"))}
+                                    className="button-days"
+                                    >
 
-                            uniqueDay.map((datas) =>
-                                <ButtonDay
-                                    key={datas.id}
-                                    day={moment(datas.sessionStartTime).format("DD")}
-                                    dayWeek={moment(datas.sessionStartTime).format("ddd")}
-                                    month={moment(datas.sessionStartTime).format("MMM")}
-                                />
-                            )
+                                    <span className="button-days-subtitle" >{moment(sessionDay.sessionStartTime).format("ddd")}</span>
+                                    <span className="button-days-tittle"  >{moment(sessionDay.sessionStartTime).format("DD")}</span>
+                                    <span className="button-days-end" >{moment(sessionDay.sessionStartTime).format("MMM")}</span>
+                                </button>
+                            ))
                         }
 
                     </div>
@@ -118,23 +128,20 @@ export default function MovieDetail() {
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
                     <div className="sessions-button-hours">
+                        {
+                            sessionByDay.map((schedules) => (
+                                <button
+                                    key={schedules.id}
+                                    className="button-hours">{moment(schedules.sessionStartTime).format("dddd DD MMMM, h:mm")}
 
-                        <button className="button-hours">Quinta, 30 Maio, 12:00</button>
-                        <button className="button-hours">Quinta, 30 Maio, 12:00</button>
+                                </button>
+                            ))
+                        }
                         <button className="button-price">Comprar</button>
-
                     </div>
-
-
-
-
                 </div>
-
-                
 
                 <MovieFooter topMovies={[]} />
             </div>

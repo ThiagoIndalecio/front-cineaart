@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, CardActions } from '@mui/material';
+import { CardActionArea} from '@mui/material';
 import { Link } from "react-router-dom";
 
 
@@ -22,7 +22,9 @@ export default function MultiActionAreaCard({ name, ageGroup, id }) {
 
 
   return (
-    <Card sx={{ maxWidth: 400, minWidth: 300, boxSizing: 'border-box', margin: 1, backgroundColor: "#90FF9F", borderRadius: 4 }}>
+    <Link to={`/movie/${id}`}>
+    <Card sx={{ height: 600 ,maxWidth: 400, minWidth: 300, boxSizing: 'border-box', margin: 1, backgroundColor: "#90FF9F", borderRadius: 4 }}>
+      
       <CardActionArea>
         <CardMedia
           component="img"
@@ -34,6 +36,11 @@ export default function MultiActionAreaCard({ name, ageGroup, id }) {
           <Typography gutterBottom variant="h4" component="div" display="flex" justifyContent="space-between"  >
             {name}
 
+            
+          </Typography>
+
+          <Typography variant="body2" color="text.secondary" display="flex" justifyContent="space-between">
+            aadsdasda
             <div id="age" className={ageClass[ageGroup]}>
               <div className="age">
                 {ageGroup}
@@ -41,18 +48,10 @@ export default function MultiActionAreaCard({ name, ageGroup, id }) {
 
             </div>
           </Typography>
-
-          <Typography variant="body2" color="text.secondary">
-            aadsdasda
-          </Typography>
         </CardContent>
       </CardActionArea >
-      <CardActions >
-        <Link to={`/movie/${id}`}>
-          Ver sessões disponiveis
-        </Link>
-
-      </CardActions>
+      
     </Card>
+    </Link>
   );
 }
