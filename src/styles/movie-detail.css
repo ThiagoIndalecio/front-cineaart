@@ -94,6 +94,39 @@
     background-color: white;
     font-size: 24px;
 }
+/* BOTÕES DIAS CSS*/
+
+
+.button-days{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 150px;
+    height: 150px;
+    background-color: #90FF9F ;
+    border-radius: 0.25rem;
+    padding: 8px;
+}
+.button-days-subtitle{
+
+    font-size: 20px;
+    font-weight: 600;
+
+}
+
+.button-days-tittle{
+    align-self: center;
+    text-align: center;
+    font-size: 60px;
+    font-weight: bold;
+}
+.button-days-end{
+    align-self: flex-end;
+    text-align: end;
+    font-size: 20px;
+    font-weight: 600;
+}
+
 
 @media screen and (max-width: 767px){
     .session-decription{
