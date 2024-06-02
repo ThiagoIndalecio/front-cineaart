@@ -128,7 +128,11 @@ const ModalChooseSeat = ({ show, onClose }) => {
 
                         {seatsAvailability.map((row, rowIndex) => (
                             <div className="row" key={rowIndex}>
-                                <div style={{marginRight: "10px", fontSize: '20px', fontWeight: "bold"}}>{rowIndexRowLetterRelation[rowIndex + 1]}</div>
+                                <div style={{
+                                    marginRight: "10px",
+                                    fontSize: '20px',
+                                    fontWeight: "bold"
+                                }}>{rowIndexRowLetterRelation[rowIndex + 1]}</div>
                                 {row.map((seat, seatIndex) => (
                                     <div
                                         key={seatIndex}
@@ -154,6 +158,8 @@ const ModalChooseSeat = ({ show, onClose }) => {
                         </li>
 
                     </ul>
+
+                    <button>ESCOLHER TIPO DE INGRESSO</button>
                 </SeatsContainer>
             </ModalContainer>
         </Modal>

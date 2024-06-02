@@ -9,7 +9,7 @@ export const ModalContainer = styled.div`
     position: fixed;
     background-color: #0F1848;
     color: white;
-    border: 5px white solid;
+    border: 5px #0056b3 solid;
 `
 
 export const SessionInfoContainer = styled.div`
@@ -115,6 +115,15 @@ export const SeatsContainer = styled.div`
 
     p.text span {
         color: #6feaf6;
+    }
+    
+    button {
+        color: #0F1848;
+        width: 70%;
+        margin-left: 17%;
+        margin-top: 5%;
+        padding: 10px;
+        background-color: #90FF9F;
     }
 `
 
