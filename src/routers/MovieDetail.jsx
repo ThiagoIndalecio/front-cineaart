@@ -11,6 +11,15 @@ import ModalChooseSeat from "../components/modal-choose-seat.jsx";
 export default function MovieDetail() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const params = useParams();
+    const [session, setSession] = useState([])
+    const [movie, setMovie] = useState([])
+    const [elenco, setElenco] = useState([])
+    const [uniqueDay, setUniqueDay] = useState([])
+    const [selectedDate, setSelectedDate] = useState([]);
+    const [sessionByDay, setSessionsByDay] = useState([])
+    const [selectedScheduleId, setSelectedScheduleId] = useState(0)
+    const [selectedScheduleDate, setSelectedScheduleDate] = useState(null)
+    const [selectedScheduleHour, setSelectedScheduleHour] = useState(null)
 
     const handleOpenModal = () => {
         setIsModalOpen(true);
@@ -20,14 +29,11 @@ export default function MovieDetail() {
         setIsModalOpen(false);
     };
 
-    const [session, setSession] = useState([])
-    const [movie, setMovie] = useState([])
-    const [elenco, setElenco] = useState([])
-    const [uniqueDay, setUniqueDay] = useState([])
-    const [selectedDate, setSelectedDate] = useState([]);
-    const [sessionByDay, setSessionsByDay] = useState([])
-
-
+    const handleSelectedScheduleData = (id, date, hour) => {
+        setSelectedScheduleId(id)
+        setSelectedDate(date)
+        setSelectedScheduleHour(hour)
+    }
 
     const handleButtonClick =   ( dateValue) => {
 
@@ -82,7 +88,7 @@ export default function MovieDetail() {
 
     return (
         <>
-            {isModalOpen && <ModalChooseSeat show={isModalOpen} onClose={handleCloseModal} />}
+            {isModalOpen && <ModalChooseSeat scheduleId={selectedScheduleId} sessionHour={selectedScheduleHour} show={isModalOpen} onClose={handleCloseModal} />}
 
             <div className="container-movies">
 
@@ -144,12 +150,12 @@ export default function MovieDetail() {
                             sessionByDay.map((schedules) => (
                                 <button
                                     key={schedules.id}
+                                    onClick={() => handleSelectedScheduleData(schedules.id, moment(schedules.sessionStartTime).format("dddd DD MMMM, h:mm"), moment(schedules.sessionStartTime).format("dddd DD MMMM, h:mm"))}
                                     className="button-hours">{moment(schedules.sessionStartTime).format("dddd DD MMMM, h:mm")}
-
                                 </button>
                             ))
                         }
-                        <button className="button-price">Comprar</button>
+                        <button onClick={handleOpenModal} className="button-price">Comprar</button>
                     </div>
                 </div>
 

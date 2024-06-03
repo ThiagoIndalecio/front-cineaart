@@ -11,16 +11,15 @@ import {Modal} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 
-const ModalChooseSeat = ({ show, onClose }) => {
+const ModalChooseSeat = ({ show, onClose, sessionHour, scheduleId }) => {
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [selectedSeatsId, setSelectedSeatsId] = useState([]);
-    const [sessionTime, setSessionTime] = useState(null);
     const [movieName, setMovieName] = useState("");
     const [seatsAvailability, setSeatsAvailability] = useState([]);
     const [sessionBasePrice, setSessionBasePrice] = useState(0);
-    const [sessionId, setSessionId] = useState(null);
     const [ticketData, setTicketData] = useState([]);
     const navigate = useNavigate(); // Hook para navegação
+    const sessionInfo = sessionHour.split(',')
 
     const buyTickets = () => {
         const tickets = [];
@@ -42,7 +41,7 @@ const ModalChooseSeat = ({ show, onClose }) => {
 
     useEffect(() => {
         if (ticketData.length > 0) {
-            navigate('/my-tickets', { state: {ticketData: ticketData, sessionId: sessionId}});
+            navigate('/my-tickets', { state: {ticketData: ticketData, sessionId: scheduleId}});
         }
     }, [ticketData, navigate]);
 
@@ -57,7 +56,7 @@ const ModalChooseSeat = ({ show, onClose }) => {
     };
 
     async function fetchData() {
-        const response = await axiosInstance.get("/api/cinema/sessions/1");
+        const response = await axiosInstance.get(`/api/cinema/sessions/${scheduleId}`);
         const data = response.data;
         return data;
     }
@@ -66,8 +65,6 @@ const ModalChooseSeat = ({ show, onClose }) => {
         fetchData().then(response => {
             setMovieName(response.movie.name);
             setSessionBasePrice(response.basePrice);
-            setSessionTime(response.sessionStartTime);
-            setSessionId(response.id)
             setSeatsAvailability(transformTo2DArray(
                 response.seats,
                 5,
@@ -104,11 +101,10 @@ const ModalChooseSeat = ({ show, onClose }) => {
         }
 
         setSelectedSeats(newSelectedSeats);
-        console.log(selectedSeatsId);
     };
 
     const getSeatClass = (rowIndex, seatIndex) => {
-        if (seatsAvailability[rowIndex][seatIndex].available === false) return 'seat occupied';
+        if (!seatsAvailability[rowIndex][seatIndex].available) return 'seat occupied';
         if (selectedSeats.includes(`${rowIndex}-${seatIndex}`)) return 'seat selected';
         return 'seat';
     };
@@ -130,7 +126,7 @@ const ModalChooseSeat = ({ show, onClose }) => {
                         </tr>
                         <tr>
                             <Image src={"/calendar.png"}></Image>
-                            <td>{sessionTime}</td>
+                            <td>{sessionInfo[0]}</td>
                         </tr>
                         <tr>
                             <Image src={"/location.png"}></Image>
@@ -138,7 +134,7 @@ const ModalChooseSeat = ({ show, onClose }) => {
                         </tr>
                         <tr>
                             <Image src={"/clock.png"}></Image>
-                            <td>{sessionTime}</td>
+                            <td>{sessionInfo[1]}</td>
                         </tr>
                     </table>
                 </SessionInfoContainer>

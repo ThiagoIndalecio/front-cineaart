@@ -1,22 +1,27 @@
 import {TicketContainer} from "../styles/my-tickets.jsx";
 import { useLocation } from 'react-router-dom';
 import axiosInstance from "../api/api.js";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 export default function MyTickets() {
+    const [session, setSession] = useState(null);
     const location = useLocation();
-    const ticketData = location.state.ticketData
-    const sessionId = location.state.sessionId
+    const ticketData = location.state.ticketData;
+    const sessionId = location.state.sessionId;
+    const sessionDateInfo = {
+        diaDaSemana: 'Segunda',
+        diaDoMes: 28,
+        mes: 'Junho',
+        inicioSessao: '12:00'
+    };
 
     async function fetchSessionData() {
-        const response = await axiosInstance.get("/api/cinema/sessions/" + sessionId);
-        const data = response.data;
-        return data;
+        return await axiosInstance.get(`/api/cinema/sessions/${sessionId}`);
     }
 
     useEffect(() => {
-        fetchSessionData()
-    }, []);
+        fetchSessionData().then(response => setSession(response.data));
+    }, [sessionId]);
 
     return (
         <TicketContainer>
@@ -24,12 +29,11 @@ export default function MyTickets() {
                 <div className="left">
                     <div className="ticket-info">
                         <p className="date">
-                            <span>TUESDAY</span>
-                            <span className="june-29">JUNE 29TH</span>
-                            <span>2021</span>
+                            <span> {sessionDateInfo.diaDaSemana}</span>
+                            <span className="june-29"> {sessionDateInfo.diaDoMes} </span>
                         </p>
                         <div className="show-name">
-                            <h1>SOUR Prom</h1>
+                            <h1>{session ? session.movie.name : 'Carregando...'}</h1>
                             <h2>Olivia Rodrigo</h2>
                         </div>
                         <div className="time">
