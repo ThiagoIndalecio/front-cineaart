@@ -4,11 +4,6 @@ export const TicketContainer = styled.div`
     @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
     @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
     height: 100%;
-    background-color: #0F1848 !important;
-    body, html {
-        height: 100%;
-        background-color: #0F1848 !important;
-    }
     * {
         margin: 0;
         padding: 0;
@@ -36,7 +31,7 @@ export const TicketContainer = styled.div`
     }
     
     .ticket {
-        margin: 2% auto 1% auto;
+        margin: 5% auto 1% auto;
         display: flex;
         background: white;
         width: 50%;
