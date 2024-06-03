@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const TicketContainer = styled.div`
     @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
     @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
+    
+    
     background-color: white;
     * {
         margin: 0;
@@ -10,14 +12,30 @@ export const TicketContainer = styled.div`
         box-sizing: border-box;
     }
 
+    #total-price{
+        
+    }
 
+    #individual-price{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30vh;
+        margin-left: 30%;
+        height: 100%;
+        font-weight: bold;
+        color: #d83565;
+        font-size: 70px;
+    }
     
     p {
         color: black;
     }
     
     .ticket {
-        margin: auto;
+        margin: 50px 50px 50px 25%;
+        border-radius: 30px;
+
         display: flex;
         background: white;
         width: 50%;

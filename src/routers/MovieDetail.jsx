@@ -88,7 +88,7 @@ export default function MovieDetail() {
 
     return (
         <>
-            {isModalOpen && <ModalChooseSeat scheduleId={selectedScheduleId} sessionHour={selectedScheduleHour} show={isModalOpen} onClose={handleCloseModal} />}
+            {isModalOpen && selectedScheduleId && <ModalChooseSeat scheduleId={selectedScheduleId} sessionHour={selectedScheduleHour} show={isModalOpen} onClose={handleCloseModal} />}
 
             <div className="container-movies">
 
