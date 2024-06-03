@@ -67,7 +67,6 @@ export default function MyTickets() {
                     </div>
                 </div>
             ))}
-            <span id={'total-price'}>Total price: asdas</span>
         </TicketContainer>
     );
 }

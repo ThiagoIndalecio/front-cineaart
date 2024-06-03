@@ -3,9 +3,12 @@ import styled from "styled-components";
 export const TicketContainer = styled.div`
     @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
     @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
-    
-    
-    background-color: white;
+    height: 100%;
+    background-color: #0F1848 !important;
+    body, html {
+        height: 100%;
+        background-color: #0F1848 !important;
+    }
     * {
         margin: 0;
         padding: 0;
@@ -21,11 +24,11 @@ export const TicketContainer = styled.div`
         justify-content: center;
         align-items: center;
         width: 30vh;
-        margin-left: 30%;
         height: 100%;
+        margin: auto;
         font-weight: bold;
         color: #d83565;
-        font-size: 70px;
+        font-size: 30px;
     }
     
     p {
@@ -33,12 +36,11 @@ export const TicketContainer = styled.div`
     }
     
     .ticket {
-        margin: 50px 50px 50px 25%;
-        border-radius: 30px;
-
+        margin: 2% auto 1% auto;
         display: flex;
         background: white;
         width: 50%;
+        border-radius: 10px;
         box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
     }
 
@@ -101,7 +103,7 @@ export const TicketContainer = styled.div`
     }
 
     .date span {
-        width: 100px;
+        width: 20vh;
     }
 
     .date span:first-child {

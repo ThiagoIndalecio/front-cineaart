@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const ModalChooseSeat = ({ show, onClose, sessionHour, scheduleId }) => {
     const [selectedSeats, setSelectedSeats] = useState([]);
-    const [selectedSeatsId, setSelectedSeatsId] = useState([]);
+    const [seats, setSeats] = useState([]);
     const [movieName, setMovieName] = useState("");
     const [seatsAvailability, setSeatsAvailability] = useState([]);
     const [sessionBasePrice, setSessionBasePrice] = useState(0);
@@ -23,7 +23,7 @@ const ModalChooseSeat = ({ show, onClose, sessionHour, scheduleId }) => {
 
     const buyTickets = () => {
         const tickets = [];
-        selectedSeatsId.forEach(seat => {
+        seats.forEach(seat => {
             const ticketRequest = {
                 seatId: seat.id,
                 uuid: uuidv4(),
@@ -94,10 +94,10 @@ const ModalChooseSeat = ({ show, onClose, sessionHour, scheduleId }) => {
             newSelectedSeats.push(seatKey);
         }
 
-        if (selectedSeatsId.some(seatId => seatId === seatsAvailability[rowIndex][seatIndex].id)) {
-            setSelectedSeatsId(selectedSeatsId.filter(item => item.id !== seatsAvailability[rowIndex][seatIndex].id));
+        if (seats.some(seatId => seatId.id === seatsAvailability[rowIndex][seatIndex].id)) {
+            setSeats(seats.filter(item => item.id !== seatsAvailability[rowIndex][seatIndex].id));
         } else {
-            setSelectedSeatsId([...selectedSeatsId, seatsAvailability[rowIndex][seatIndex]]);
+            setSeats([...seats, seatsAvailability[rowIndex][seatIndex]]);
         }
 
         setSelectedSeats(newSelectedSeats);
