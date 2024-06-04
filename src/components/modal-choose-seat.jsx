@@ -28,7 +28,8 @@ const ModalChooseSeat = ({ show, onClose, sessionHour, scheduleId }) => {
                 seatId: seat.id,
                 uuid: uuidv4(),
                 paidPrice: sessionBasePrice,
-                discountType: 'NONE'
+                discountType: 'NONE',
+                seatNumber: seat.seatNumber
             };
             axiosInstance.post(
                 'api/cinema/tickets',

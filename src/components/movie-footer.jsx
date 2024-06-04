@@ -1,19 +1,13 @@
 import '../styles/movie-footer.css'
 
-export default function MovieFooter({topMovies}) {
+export default function MovieFooter() {
 
     return (
         <div id="movie-footer" className="container">
             <div className="footer-title">
                 <div className="films">
                     <h2>Top filmes da Semana</h2>
-                    {
-                    topMovies.map((movie) => (
-                       <p key={movie.id}>{movie.name}</p>
-                    )
-                )
-                    
-                }
+                    <p>Kink Kong </p>
                 </div>
                 <div className="programation">
                     <h2>Programação</h2>

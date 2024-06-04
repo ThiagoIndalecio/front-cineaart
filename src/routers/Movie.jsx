@@ -8,7 +8,6 @@ import '../styles/age.css'
 export default function Movie() {
 
     const [movies, setMovies] = useState([])
-    const [topMovies, setTopMovies] = useState([])
 
     useEffect(() => {
         async function data() {
@@ -16,10 +15,17 @@ export default function Movie() {
             const data = response.data.content
             console.log(data)
             setMovies(data)
-            setTopMovies(data.slice(0,2))
+           
 
         }
         data()
+        console.log(movies)
+
+
+
+
+
+
 
     }, [])
 
@@ -38,12 +44,15 @@ export default function Movie() {
             <div id="movie" className="cards-list">
                 {
                     
-                    movies.map((movie) => (
+                    movies.map((movie) =>(
+                         
+                        
                         <MultiActionAreaCard
                             key={movie.id}
                             id={movie.id}
                             name={movie.name}
                             ageGroup={movie.ageGroup}
+                            category={movie.category}
                         />
 
                         )
@@ -65,7 +74,7 @@ export default function Movie() {
                 <div className="card"><MultiActionAreaCard /></div>
 
             </div>
-            <MovieFooter topMovies={topMovies} />
+            <MovieFooter/>
             
         </div>
 

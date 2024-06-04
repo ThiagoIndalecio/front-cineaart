@@ -1,9 +1,10 @@
-import { TicketContainer } from "../styles/my-tickets.jsx";
-import { useLocation } from 'react-router-dom';
+import { TicketContainer,  } from "../styles/my-tickets.jsx";
+import { Link, useLocation } from 'react-router-dom';
 import axiosInstance from "../api/api.js";
 import { useEffect, useState } from "react";
 import 'moment/dist/locale/pt-br';
 import moment from 'moment';
+import { Button } from "@mui/material";
 
 export default function MyTickets() {
     const [session, setSession] = useState(null);
@@ -15,14 +16,16 @@ export default function MyTickets() {
         const response = await axiosInstance.get(`/api/cinema/sessions/${sessionId}`);
         return response.data;
     }
-
+    console.log(ticketData)
     useEffect(() => {
         moment.locale('pt-br');
 
         fetchSessionData().then(data => setSession(data));
-    }, [sessionId]);
+    }, [sessionId]
+);
 
     return (
+        <div className="container-ticket">
         <TicketContainer>
             {ticketData.map(ticket => (
                 <div key={ticket.id} className="ticket created-by-anniedotexe">
@@ -50,7 +53,7 @@ export default function MyTickets() {
                                 <h1>{session ? session.movie.name : ''}</h1>
                             </div>
                             <div className="time">
-                                <p>8:00 PM <span>ATÉ</span> 11:00 PM</p>
+                                <p>{session ? moment(session.sessionStartTime).format("HH:mm"): ''}<span> ATÉ </span>{session ? moment(session.sessionEndTime).format("HH:mm"): ''} </p>
                             </div>
                             <div className="barcode">
                                 <img
@@ -58,7 +61,11 @@ export default function MyTickets() {
                                     alt="QR code"
                                 />
                             </div>
-                            <p className="ticket-number">#20030220</p>
+                            <div>
+                                <p className="ticket-number">#20030220</p>
+                                <p style={{fontWeight: 'bold'}}>Número da cadeira</p>
+                                <span>{ticket.seatNumber}</span>
+                            </div>
                         </div>
 
                     </div>
@@ -68,5 +75,17 @@ export default function MyTickets() {
                 </div>
             ))}
         </TicketContainer>
+            <div className="button-home-container " style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', marginTop: '20px' }}>
+                <div className="button-home">
+                <Link to="/movie">
+                    <Button variant="contained" size="medium">Voltar</Button>
+                </Link>
+
+            </div>
+        </div>
+       
+        
+        
+        </div>
     );
 }

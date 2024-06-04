@@ -175,14 +175,16 @@ export const TicketContainer = styled.div`
 
     .right .right-info-container {
         height: 250px;
-        padding: 10px 10px 10px 35px;
+        padding: 10px 15px 10px 35px;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
+        width:200px
     }
-
+    
     .right .show-name h1 {
+        margin: 0px 0px 30px 0px;
         font-size: 18px;
     }
 
@@ -195,7 +197,10 @@ export const TicketContainer = styled.div`
     }
 
     .right .ticket-number {
+        text-align:center;
+        margin: 0px 0px 30px 0px;
         color: gray;
     }
-
+    
+  
 `
