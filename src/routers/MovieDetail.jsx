@@ -6,10 +6,11 @@ import 'moment/dist/locale/pt-br';
 import moment from 'moment';
 import '../styles/movie-detail.css';
 import Eror404 from "./Error404";
+import ModalChooseSeat from "../components/modal-choose-seat.jsx";
 
 export default function MovieDetail() {
     const params = useParams();
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [session, setSession] = useState([]);
     const [movie, setMovie] = useState([]);
     const [elenco, setElenco] = useState([]);
@@ -18,6 +19,15 @@ export default function MovieDetail() {
     const [sessionByDay, setSessionsByDay] = useState([]);
     const [selectedButtonId, setSelectedButtonId] = useState(null);
     const [selectedHourButtonId, setSelectedHourButtonId] = useState(null);
+    const [selectedScheduleDate, setSelectedScheduleDate] = useState(null)
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
 
     const handleButtonClick = (dateValue, id) => {
         setSelectedDate(dateValue);
@@ -26,8 +36,9 @@ export default function MovieDetail() {
         setSessionsByDay(hoursSessions);
     };
 
-    const handleHourButtonClick = (id) => {
+    const handleHourButtonClick = (id, date) => {
         setSelectedHourButtonId(id);
+        setSelectedScheduleDate(date)
     };
 
     useEffect(() => {
@@ -48,9 +59,12 @@ export default function MovieDetail() {
 
             uniqueSessions.sort((a, b) => {
                 return new Date(a.sessionStartTime) - new Date(b.sessionStartTime);
+
             });
 
-            setUniqueDay(uniqueSessions);
+            setUniqueDay(uniqueSessions)
+
+
         }
 
         async function dataMovie() {
@@ -71,6 +85,8 @@ export default function MovieDetail() {
     return (
        
         <>
+            {isModalOpen && selectedHourButtonId && <ModalChooseSeat scheduleId={selectedHourButtonId} sessionHour={selectedScheduleDate} show={isModalOpen} onClose={handleCloseModal} />}
+
             <div className="container-movies">
                 <div className="background-banner">
                     <img src="https://storage.googleapis.com/portal-da-promo/L01_banner_promocaodroetker-cinemacombolodecaneca-20221656088449614.jpg" alt="" />
@@ -123,13 +139,15 @@ export default function MovieDetail() {
                         {sessionByDay.map((schedules) => (
                             <button
                                 key={schedules.id}  
-                                onClick={() => handleHourButtonClick(schedules.id)}
+                                onClick={() => handleHourButtonClick(schedules.id,moment(schedules.sessionStartTime).format("dddd DD MMMM, HH:mm"))}
                                 className={`button-hours ${selectedHourButtonId === schedules.id ? 'selected' : ''}`}
                             >
                                 {moment(schedules.sessionStartTime).format("dddd DD MMMM, HH:mm")}
                             </button>
                         ))}
-                        <button className="button-price">Comprar</button>
+                        <button className="button-price" 
+                        onClick={handleOpenModal}
+                        >Escolher Assento</button>
                     </div>
                 </div>
                 <MovieFooter />

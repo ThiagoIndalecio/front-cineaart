@@ -1,11 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from './routers/Home'
-import Movie from './routers/Movie'
+import Home from './routers/Home.jsx'
+import Movie from './routers/Movie.jsx'
 import MovieDetail from './routers/MovieDetail'
 import Error404 from './routers/Error404';
-import App from './App';
+import App from './App.jsx';
+import MyTickets from "./routers/MyTickets.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "*",
         element: <Error404 />
+      },
+      {
+        path: "/my-tickets",
+        element: <MyTickets />
       }
 
 
